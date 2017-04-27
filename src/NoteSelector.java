@@ -36,27 +36,27 @@ public class NoteSelector extends JFrame implements MouseListener{
 		
 		int layoutH = 0;
 		try(Connection conn = DriverManager.getConnection("jdbc:sqlite:notes.db");
-				Statement st = conn.createStatement();){
-					ResultSet rs = st.executeQuery("SELECT * FROM notes");
-					JPanel tmp = new JPanel();
-					Box vBox = Box.createVerticalBox();
+			Statement st = conn.createStatement();){
+				ResultSet rs = st.executeQuery("SELECT * FROM notes");
+				JPanel tmp = new JPanel();
+				Box vBox = Box.createVerticalBox();
 					
-					System.out.println(layoutH);
+				System.out.println(layoutH);
 					
-					while(rs.next()){
-						layoutH++;
-						System.out.println(rs.getInt("id") + " " + rs.getString("text"));
-						tmp.add(new JLabel(rs.getInt("id") + ""));
-						JLabel txtLabel = new JLabel(rs.getString("text"));
-						tmp.add(txtLabel);	
-						txtLabel.addMouseListener(this);
-						vBox.add(tmp);						
-					}
-					GridLayout grid = new GridLayout(layoutH,1);
-					tmp.setLayout(grid);
-					p.add(vBox);
+				while(rs.next()){
+					layoutH++;
+					System.out.println(rs.getInt("id") + " " + rs.getString("text"));
+					tmp.add(new JLabel(rs.getInt("id") + ""));
+					JLabel txtLabel = new JLabel(rs.getString("text"));
+					tmp.add(txtLabel);	
+					txtLabel.addMouseListener(this);
+					vBox.add(tmp);						
+				}
+				GridLayout grid = new GridLayout(layoutH,1);
+				tmp.setLayout(grid);
+				p.add(vBox);
 					
-			}catch(Exception e){
+		}catch(Exception e){
 				e.printStackTrace();
 		}
 		
@@ -84,13 +84,20 @@ public class NoteSelector extends JFrame implements MouseListener{
 		JLabel src = (JLabel)me.getSource();
 		String s = "" + colorCB.getSelectedItem();
 		switch(s){
-		case "RED" : new NoteWindow(src.getText(), Color.RED); break;
-		case "BLUE" : new NoteWindow(src.getText(), Color.BLUE); break;
-		case "GREEN" : new NoteWindow(src.getText(), Color.GREEN); break;
+		case "RED" : new NoteWindow(src.getText(), Color.RED); pushToDb(src.getText()); break;
+		case "BLUE" : new NoteWindow(src.getText(), Color.BLUE); pushToDb(src.getText()); break;
+		case "GREEN" : new NoteWindow(src.getText(), Color.GREEN); pushToDb(src.getText()); break;
 		}
 	}
 
-	
+	private void pushToDb(String text){
+		try(Connection conn = DriverManager.getConnection("jdbc:sqlite:notes.db");
+			Statement st = conn.createStatement();){
+				st.executeUpdate("INSERT INTO openNotes VALUES ('" + text + "')");		
+			}catch(Exception e){
+				e.printStackTrace();
+		}
+	}
 	
 	//unused
 	@Override

@@ -74,14 +74,14 @@ public class NoteAdder extends JFrame implements ActionListener{
 					}
 					System.out.println("INSERT INTO notes VALUES(" + id + ", '" + textA.getText() + "')");
 					st.executeUpdate("INSERT INTO notes VALUES(" + id + ", '" + textA.getText() + "')");
-				
+					this.dispose();
 				}catch(Exception e){
-					PopupWindow p = new PopupWindow("Something went wrong, try again.\n\n" + e.getMessage());
+					new PopupWindow("Something went wrong, try again.\n\n" + e.getMessage());
 					e.printStackTrace();
 				}
 				
 			}else{
-				PopupWindow p = new PopupWindow("Please write something");
+				new PopupWindow("Please write something");
 			}
 		}
 	}

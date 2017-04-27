@@ -15,8 +15,8 @@ public class PopupWindow extends JDialog{
 		panel.add(label);
 		this.add(panel);
 		this.setLocationRelativeTo(null);
-		this.setSize(300,200);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.pack();
 	}
 }
