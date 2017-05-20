@@ -10,7 +10,7 @@ public class Main {
 		try{
 			Class.forName("org.sqlite.JDBC");
 		}catch(Exception e){
-			PopupWindow p = new PopupWindow("Something went wrong.\n" + e.getMessage());
+			new PopupWindow("Something went wrong.\n" + e.getMessage());
 		}
 		
 		try(Connection conn = DriverManager.getConnection("jdbc:sqlite:notes.db");
@@ -18,7 +18,7 @@ public class Main {
 					st.executeUpdate("CREATE TABLE IF NOT EXISTS notes (id INTEGER, text STRING)");
 					st.executeUpdate("CREATE TABLE IF NOT EXISTS openNotes (text String)");
 		}catch(Exception e){
-				PopupWindow p = new PopupWindow("Something went wrong with creating the database, try again.\n\n" + e.getMessage());
+				new PopupWindow("Something went wrong with creating the database, try again.\n\n" + e.getMessage());
 				e.printStackTrace();
 		}
 		

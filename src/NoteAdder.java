@@ -42,7 +42,7 @@ public class NoteAdder extends JFrame implements ActionListener{
 		panel.add(panel1);
 		this.add(panel);
 		
-		this.setSize(400, 600);
+		this.setSize(400, 650);
 		this.setVisible(true);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

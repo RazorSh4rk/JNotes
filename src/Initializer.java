@@ -53,7 +53,7 @@ public class Initializer extends JFrame implements ActionListener{
 				st.executeUpdate("DROP TABLE IF EXISTS openNotes");
 				st.executeUpdate("CREATE TABLE IF NOT EXISTS notes (id INTEGER, text STRING)");
 				st.executeUpdate("CREATE TABLE IF NOT EXISTS openNotes (text String)");
-				PopupWindow p = new PopupWindow("Database reset.");
+				new PopupWindow("Database reset.");
 			}catch(Exception e){
 				new PopupWindow("Something went wrong, try again.\n\n" + e.getMessage());
 				e.printStackTrace();
